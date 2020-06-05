@@ -53,7 +53,7 @@ class DBManager {
             print(error.localizedDescription)
         }
     }
-    
+
     func updateCountry(_ country: Country, newCase: Int, newDeath: Int) {
         do {
             if !database.isInWriteTransaction {
@@ -90,7 +90,7 @@ class DBManager {
         return database.object(ofType: Country.self, forPrimaryKey: "world\(dateString)")
     }
     
-    func getTodayCountryList() -> Results<Country>{
+    func getLatestCountryList() -> Results<Country>{
         let today = Util.dateToBeginningOfDay(Date())
         let array = database.objects(Country.self).filter("date = %@ and name != %@", today, "world").sorted(byKeyPath: "totalCases", ascending: false)
         return array

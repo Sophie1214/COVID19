@@ -23,7 +23,7 @@ class CountryListController: UITableViewController {
     @IBOutlet weak var searchBar: UISearchBar!
     var list: [Country] = []
     var countryList: [Country] {
-        return Array(DBManager.shared.getTodayCountryList())
+        return Array(DBManager.shared.getLatestCountryList())
     }
     let customRefresh = UIRefreshControl()
     
@@ -51,9 +51,28 @@ class CountryListController: UITableViewController {
         WebManager.getCountryList { [weak self] (countryList) in
             guard let self = self else { return }
             self.list = self.countryList
-            SVProgressHUD.dismiss()
-            self.customRefresh.endRefreshing()
-            self.tableView.reloadData()
+            
+            let allCountries = countryList.reduce([]) { (all, country) -> [String] in
+                if !all.contains(country.name) {
+                    var newArray = all
+                    newArray.append(country.name)
+                    return newArray
+                }
+                return all
+            }
+            
+            for country in allCountries {
+                var name = country
+                if name.lowercased() == "us" {
+                    name = "usa"
+                }
+                
+                WebManager.getLatestData(for: name){
+                    self.list = self.countryList
+                    self.tableView.reloadData()
+                    SVProgressHUD.dismiss()
+                }
+            }
         }
     }
     

@@ -64,6 +64,26 @@ class WebManager {
 //        }
 //    }
     
+    static func getLatestData(for country: String, _ completion: @escaping (() -> Void)) {
+        let params: [String: Any] = ["format": "json", "name": country]
+
+        
+        AF.request("https://covid-19-data.p.rapidapi.com/country", parameters: params, headers: headers).responseJSON { response in
+            switch response.result {
+            case .success(let data):
+                let json = JSON(data).arrayValue
+                if let countryJson = json.first {
+                    let date = Util.dateToBeginningOfDay(Date())
+                    let country = Country(name: country, json: countryJson, date: date)
+                    DBManager.shared.insertCountry(country)
+                    completion()
+                }
+            case .failure(let error):
+                print("failed, error: \(error.localizedDescription)")
+            }
+        }
+    }
+    
     static func getAllCountryTodayData(completion: @escaping((Country?) -> Void)) {
         AF.request("https://covid-19-data.p.rapidapi.com/country/all", headers: headers).responseJSON { response in
             switch response.result {

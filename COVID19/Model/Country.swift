@@ -62,4 +62,15 @@ class Country: Object, Comparable {
         self.date = parsedDate ?? Calendar.current.date(bySettingHour: 0, minute: 0, second: 0, of: Date())!
         self.id = "\(name)\(date)"
     }
+    
+    convenience init(name: String, json: JSON, date: Date) {
+        self.init()
+        
+        self.name = name
+        self.totalCases = json["confirmed"].intValue
+        self.totalDeaths = json["deaths"].intValue
+        self.totalRecovered = json["recovered"].intValue
+        self.date = date
+        self.id = "\(name)\(date)"
+    }
 }
