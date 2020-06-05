@@ -74,7 +74,16 @@ class WebManager {
                 let json = JSON(data).arrayValue
                 if let countryJson = json.first {
                     let date = Util.dateToBeginningOfDay(Date())
-                    let country = Country(name: country, json: countryJson, date: date)
+                    var countryName = country
+                    if countryName == "usa"{
+                        countryName = "US"
+                    }
+                    let country = Country(name: countryName, json: countryJson, date: date)
+                    let previousDay = Calendar.current.date(byAdding: .day, value: -1, to: date)!
+                    if let previousDay = DBManager.shared.getData(for: "\(country.name)\(previousDay)"){
+                        country.gainedCases = country.totalCases - previousDay.totalCases
+                    }
+                    
                     DBManager.shared.insertCountry(country)
                     completion()
                 }

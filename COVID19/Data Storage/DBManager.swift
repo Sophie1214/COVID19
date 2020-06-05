@@ -95,4 +95,8 @@ class DBManager {
         let array = database.objects(Country.self).filter("date = %@ and name != %@", today, "world").sorted(byKeyPath: "totalCases", ascending: false)
         return array
     }
+    
+    func getData(for countryId: String) -> Country?{
+        return database.object(ofType: Country.self, forPrimaryKey: countryId)
+    }
 }
