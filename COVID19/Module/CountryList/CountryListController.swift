@@ -41,8 +41,13 @@ class CountryListController: UITableViewController {
         tableView.refreshControl = customRefresh
         
         self.list = self.countryList
-        refresh()
         
+        let yesterdayData = DBManager.shared.getYesterdayData()
+        if yesterdayData.count == 0 {
+            refresh()
+        } else {
+            getAllCountryTodayData(countires: Array(yesterdayData))
+        }
         
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Sort", style: .plain, target: self, action: #selector(showMenu(_:)))
     }
@@ -51,27 +56,31 @@ class CountryListController: UITableViewController {
         WebManager.getCountryList { [weak self] (countryList) in
             guard let self = self else { return }
             self.list = self.countryList
-            
-            let allCountries = countryList.reduce([]) { (all, country) -> [String] in
-                if !all.contains(country.name) {
-                    var newArray = all
-                    newArray.append(country.name)
-                    return newArray
-                }
-                return all
+            self.getAllCountryTodayData(countires: countryList)
+            self.tableView.refreshControl?.endRefreshing()
+        }
+    }
+    
+    func getAllCountryTodayData(countires: [Country]){
+        let allCountries = countires.reduce([]) { (all, country) -> [String] in
+            if !all.contains(country.name) {
+                var newArray = all
+                newArray.append(country.name)
+                return newArray
+            }
+            return all
+        }
+        
+        for country in allCountries {
+            var name = country
+            if name.lowercased() == "us" {
+                name = "usa"
             }
             
-            for country in allCountries {
-                var name = country
-                if name.lowercased() == "us" {
-                    name = "usa"
-                }
-                
-                WebManager.getLatestData(for: name){
-                    self.list = self.countryList
-                    self.tableView.reloadData()
-                    SVProgressHUD.dismiss()
-                }
+            WebManager.getLatestData(for: name){
+                self.list = self.countryList
+                self.tableView.reloadData()
+                SVProgressHUD.dismiss()
             }
         }
     }
@@ -185,6 +194,13 @@ class CountryListController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 35
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let country = list[indexPath.section]
+        let controller = CountryDetailController()
+        controller.name = country.name
+        self.navigationController?.pushViewController(controller, animated: true)
     }
 }
 

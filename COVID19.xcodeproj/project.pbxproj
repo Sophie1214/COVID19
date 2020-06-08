@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		7D9A581EB310D288418D3922 /* Pods_COVID19.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 789D1B14131DA92895D38F43 /* Pods_COVID19.framework */; };
 		E48926EA2448DD8A00A03777 /* WorldDay.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48926E92448DD8A00A03777 /* WorldDay.swift */; };
+		E49386A0248AE49D00BB73D6 /* CountryDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E493869F248AE49D00BB73D6 /* CountryDetailController.swift */; };
 		E4D4EBFA243AD218004B9B82 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4D4EBF9243AD218004B9B82 /* AppDelegate.swift */; };
 		E4D4EBFC243AD218004B9B82 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4D4EBFB243AD218004B9B82 /* SceneDelegate.swift */; };
 		E4D4EBFE243AD218004B9B82 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4D4EBFD243AD218004B9B82 /* ViewController.swift */; };
@@ -42,6 +43,7 @@
 		789D1B14131DA92895D38F43 /* Pods_COVID19.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_COVID19.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7C063F48F05C8CD941D15542 /* Pods-COVID19.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-COVID19.release.xcconfig"; path = "Target Support Files/Pods-COVID19/Pods-COVID19.release.xcconfig"; sourceTree = "<group>"; };
 		E48926E92448DD8A00A03777 /* WorldDay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorldDay.swift; sourceTree = "<group>"; };
+		E493869F248AE49D00BB73D6 /* CountryDetailController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryDetailController.swift; sourceTree = "<group>"; };
 		E4D4EBF6243AD218004B9B82 /* COVID19.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = COVID19.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E4D4EBF9243AD218004B9B82 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E4D4EBFB243AD218004B9B82 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -228,6 +230,7 @@
 			isa = PBXGroup;
 			children = (
 				E4D4EC1D243BAF9D004B9B82 /* CountryListController.swift */,
+				E493869F248AE49D00BB73D6 /* CountryDetailController.swift */,
 				E4D4EC18243BAD5C004B9B82 /* CountryListCell2.swift */,
 			);
 			path = CountryList;
@@ -375,6 +378,7 @@
 				E4D4EC39243BF412004B9B82 /* PopMenuDismissAnimationController.swift in Sources */,
 				E4D4EC15243AD6E1004B9B82 /* CountryListCell.swift in Sources */,
 				E48926EA2448DD8A00A03777 /* WorldDay.swift in Sources */,
+				E49386A0248AE49D00BB73D6 /* CountryDetailController.swift in Sources */,
 				E4D4EC19243BAD5C004B9B82 /* CountryListCell2.swift in Sources */,
 				E4D4EC33243BF412004B9B82 /* PopMenuManager.swift in Sources */,
 				E4E821482447A7EF00980D53 /* Util.swift in Sources */,

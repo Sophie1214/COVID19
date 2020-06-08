@@ -124,4 +124,10 @@ class Util {
         chartSettings.labelsSpacing = 0
         return chartSettings
     }
+    
+    static func getEightyDayData(array: [Country]) -> [Country] {
+        let arraySlice = array.suffix(80)
+        let ninetyDayData = Array(arraySlice)
+        return ninetyDayData
+    }
 }

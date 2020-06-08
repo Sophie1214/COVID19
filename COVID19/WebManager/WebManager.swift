@@ -133,7 +133,7 @@ class WebManager {
     
     static func getWorldDataBy(date: String, completion: @escaping((Country?) -> Void)) {
         
-        let param = ["date": date, "format": "undefined"]
+        let param = ["date": date, "format": "json", "date-format": "YYYY-MM-DD"]
         
         AF.request("https://covid-19-data.p.rapidapi.com/report/totals", parameters: param, headers: headers).responseJSON { response in
             switch response.result {

@@ -55,8 +55,8 @@ class WorldController: UIViewController {
     func generateGraphData(){
         SVProgressHUD.show()
         
-        let firstDay = Date(timeIntervalSince1970: 1579651200)
-        var currentDate = Date()
+        let firstDay = Date(timeIntervalSince1970: 1583024934)
+        var currentDate = Calendar.current.date(byAdding: .day, value: -1, to: Date())!
         let myGroup = DispatchGroup()
         while currentDate > firstDay {
             myGroup.enter()
@@ -90,14 +90,16 @@ class WorldController: UIViewController {
     }
     
     func createTotalCaseChart(view: UIView) {
-        let chart = Util.createChart(data: worldDayData, view: view, multiple: 250000, lineColor: #colorLiteral(red: 0, green: 0.7863109368, blue: 1, alpha: 1), caseType: .totalCase)
+        let ninetyDayData = Util.getEightyDayData(array: worldDayData)
+        let chart = Util.createChart(data: ninetyDayData, view: view, multiple: 250000, lineColor: #colorLiteral(red: 0, green: 0.7863109368, blue: 1, alpha: 1), caseType: .totalCase)
         
         view.addSubview(chart.view)
         self.worldView.totalCaseChart = chart
     }
     
     func createTotalDeathChart(view: UIView){
-        let chart = Util.createChart(data: worldDayData, view: view, multiple: 25000, lineColor: #colorLiteral(red: 0.9607843161, green: 0.7058823705, blue: 0.200000003, alpha: 1), caseType: .totalDeath)
+        let ninetyDayData = Util.getEightyDayData(array: worldDayData)
+        let chart = Util.createChart(data: ninetyDayData, view: view, multiple: 25000, lineColor: #colorLiteral(red: 0.9607843161, green: 0.7058823705, blue: 0.200000003, alpha: 1), caseType: .totalDeath)
         view.addSubview(chart.view)
         self.worldView.totalDeathChart = chart
     }

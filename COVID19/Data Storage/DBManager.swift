@@ -99,4 +99,14 @@ class DBManager {
     func getData(for countryId: String) -> Country?{
         return database.object(ofType: Country.self, forPrimaryKey: countryId)
     }
+    
+    func getAllData(for country: String) -> Results<Country> {
+        return database.objects(Country.self).filter("name = %@", country).sorted(byKeyPath: "date", ascending: true)
+    }
+    
+    func getYesterdayData() -> Results<Country> {
+        let today = Util.dateToBeginningOfDay(Date())
+        let previousDay = Calendar.current.date(byAdding: .day, value: -1, to: today)
+        return database.objects(Country.self).filter("date = %@", previousDay)
+    }
 }
